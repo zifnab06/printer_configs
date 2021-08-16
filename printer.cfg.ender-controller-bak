@@ -1,29 +1,47 @@
+# This file contains pin mappings for the stock 2020 Creality Ender 3
+# V2. To use this config, during "make menuconfig" select the
+# STM32F103 with a "28KiB bootloader" and with "Use USB for
+# communication" disabled.
+
+# If you prefer a direct serial connection, in "make menuconfig"
+# select "Enable extra low-level configuration options" and select the
+# USART3 serial port, which is broken out on the 10 pin IDC cable used
+# for the LCD module as follows:
+# 3: Tx, 4: Rx, 9: GND, 10: VCC
+
+# Flash this firmware by copying "out/klipper.bin" to a SD card and
+# turning on the printer with the card inserted. The firmware
+# filename must end in ".bin" and must not match the last filename
+# that was flashed.
+
+# See docs/Config_Reference.md for a description of parameters.
+
 [stepper_x]
-step_pin: PE2
-dir_pin: PE1
-enable_pin: !PE3
+step_pin: PC2
+dir_pin: PB9
+enable_pin: !PC3
 microsteps: 16
 rotation_distance: 40
-endstop_pin: ^PC1
+endstop_pin: ^PA5
 position_endstop: 0
 position_max: 245
 homing_speed: 50
 
 [stepper_y]
-step_pin: PD5
-dir_pin: !PD4
-enable_pin: !PD6
+step_pin: PB8
+dir_pin: PB7
+enable_pin: !PC3
 microsteps: 16
 rotation_distance: 40
-endstop_pin: ^PC3
+endstop_pin: ^PA6
 position_endstop: 0
 position_max: 235
 homing_speed: 50
 
 [stepper_z]
-step_pin: PA15
-dir_pin: PA8
-enable_pin: !PD1
+step_pin: PB6
+dir_pin: !PB5
+enable_pin: !PC3
 microsteps: 16
 rotation_distance: 8
 endstop_pin: probe:z_virtual_endstop
@@ -32,25 +50,17 @@ position_max: 250
 position_min: -3
 
 [extruder]
-step_pin: PD15
-dir_pin: PD14
-enable_pin: !PC7
+max_extrude_only_distance: 100.0
+step_pin: PB4
+dir_pin: PB3
+enable_pin: !PC3
 microsteps: 16
-
-# mini sherpa
-rotation_distance: 22.67895
-gear_ratio: 50:10
-microsteps: 16
-full_steps_per_rotation: 200
-max_extrude_only_distance: 1400.0
-max_extrude_only_velocity: 75.0
-max_extrude_only_accel: 1500
-
+rotation_distance: 34.406
 nozzle_diameter: 0.400
 filament_diameter: 1.750
-heater_pin: PB3
+heater_pin: PA1
 sensor_type: EPCOS 100K B57560G104F
-sensor_pin: PA2
+sensor_pin: PC5
 #control: pid
 # tuned for stock hardware with 200 degree Celsius target
 #pid_Kp: 21.527
@@ -59,33 +69,10 @@ sensor_pin: PA2
 min_temp: 0
 max_temp: 275
 
-[tmc2209 stepper_x]
-uart_pin: PE0
-run_current: 0.500
-hold_current: 0.500
-diag_pin:
-
-[tmc2209 stepper_y]
-uart_pin: PD3
-run_current: 0.500
-hold_current: 0.500
-diag_pin:
-
-[tmc2209 stepper_z]
-uart_pin: PD0
-run_current: 0.500
-hold_current: 0.500
-diag_pin:
-
-[tmc2209 extruder]
-uart_pin: PC6
-run_current: 0.300
-diag_pin:
-
 [heater_bed]
-heater_pin: PD7
+heater_pin: PA2
 sensor_type: EPCOS 100K B57560G104F
-sensor_pin: PA1
+sensor_pin: PC4
 #control: pid
 # tuned for stock hardware with 50 degree Celsius target
 #pid_Kp: 54.027
@@ -94,18 +81,11 @@ sensor_pin: PA1
 min_temp: 0
 max_temp: 130
 
-[heater_fan hotend_fan]
-pin: PB6
-max_power: 1.0
-heater: extruder
-heater_temp: 40.0
-fan_speed: 1.00
-
 [fan]
-pin: PB5
+pin: PA0
 
 [mcu]
-serial: /dev/serial/by-id/usb-Klipper_stm32f407xx_340023001650325237333520-if00
+serial: /dev/serial/by-id/usb-1a86_USB_Serial-if00-port0
 restart_method: command
 
 [printer]
@@ -123,8 +103,8 @@ path: ~/gcode_files
 [pause_resume]
 
 [bltouch]
-sensor_pin: ^PE4
-control_pin: PE5
+sensor_pin: ^PB1
+control_pin: PB0
 x_offset: -40
 y_offset: -4
 #z_offset: 0.2
